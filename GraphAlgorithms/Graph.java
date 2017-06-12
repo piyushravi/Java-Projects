@@ -9,9 +9,16 @@ package graphalgorithms;
  *
  * @author piyush
  */
-public class Graphs {
+public class Graph {
     private Vertex [] vertices;
     private Edge [] edges;
+    
+    Graph(Vertex []vertices, Edge []edges){
+        
+        this.vertices=vertices;
+        this.edges=edges;
+        
+    }
     
     
 }
