@@ -4,16 +4,22 @@
  * and open the template in the editor.
  */
 package graphalgorithms;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author piyush
  */
 public class Forest {
-    private Tree [] trees;
+    private List <Tree> trees= new ArrayList<>();
     
-    Forest(Tree []trees){
+    Forest(ArrayList <Tree> trees){
         this.trees=trees;
+        
     }
+    
+    
+    
     
 }
