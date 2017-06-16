@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package graphalgorithms;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -11,10 +13,17 @@ package graphalgorithms;
  */
 public class Node {
     private Node parent;
-    private Node [] children;
-    Node(){
-    Node.parent=null;
-    Node.children=null;
+    private List<Node> children= new ArrayList<>();
+    private Vertex vertex;
+    
+    Node(Vertex vertex, Node parent, List<Node> children){
+        this.vertex=vertex;
+        this.parent=parent;
+        this.children=children;
+    }
+    
+    private void appendChild (Node child){
+        this.children.add(child);
     }
     
 }
