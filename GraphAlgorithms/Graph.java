@@ -38,7 +38,7 @@ public class Graph {
     }
     
     public Map getAdjacencyMatrix(){
-        if (madeAdjacencyMatrix==False){
+        if (madeAdjacencyMatrix==false){
             this.makeAdjacencyMatrix();
             
         }
