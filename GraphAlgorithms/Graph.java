@@ -9,16 +9,16 @@ package graphalgorithms;
  *
  * @author piyush
  */
-public class Graph {
-    private Vertex [] vertices;
-    private Edge [] edges;
-    
-    Graph(Vertex []vertices, Edge []edges){
+import java.util.ArrayList;
+import java.util.List;
         
+public class Graph {
+    private List<Vertex> vertices= new ArrayList<>();
+    private List<Edge> edges= new ArrayList<>();
+    
+    Graph(ArrayList <Vertex> vertices, ArrayList <Edge> edges){
         this.vertices=vertices;
         this.edges=edges;
-        
     }
-    
     
 }
