@@ -16,6 +16,7 @@ public class Graph {
     private List<Edge> edges= new ArrayList<>();
     private Map adjMat= new HashMap();
     private boolean madeAdjacencyMatrix= false;
+    private boolean isSparse;
     
     Graph(ArrayList <Vertex> vertices, ArrayList <Edge> edges){
         this.vertices=vertices;
@@ -28,12 +29,25 @@ public class Graph {
     
     public void addEdge(Edge edge){
         this.edges.add(edge);
-        if (this.madeAdjacencyMatrix)
+        if (this.madeAdjacencyMatrix){
+            this.updateAdjacencyMatrix(edge);
+        }
+    }
+    
+    public void updateAdjacencyMatrix(Edge edge){
+        //do nothing
+    }
+    
+    public void updateAdjacecyMatrix(Vertex vertex){
+        //do nothing
     }
     
     public void makeAdjacencyMatrix(){
         this.madeAdjacencyMatrix=true;
+        for (int i=0; i<0; i++){
+        //do nothing
         
+        }
     
     }
     
@@ -44,6 +58,10 @@ public class Graph {
         }
         
         return this.adjMat;
+    }
+    
+    public boolean isSparse(){
+        return 2*this.edges.size()<this.vertices.size()*this.vertices.size();
     }
     
 }
