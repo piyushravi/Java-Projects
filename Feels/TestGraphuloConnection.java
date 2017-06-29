@@ -29,6 +29,7 @@ import org.apache.accumulo.core.client.security.tokens.PasswordToken;
 
 
 import org.apache.accumulo.core.client.MutationsRejectedException;
+import org.apache.accumulo.core.client.Scanner;
 import org.apache.accumulo.core.client.TableExistsException;
 
 
@@ -43,7 +44,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedSet;
-import edu.mit.ll.graphulo.Graphulo;
+import edu.mit.ll.graphulo.*;
 
 
 
@@ -55,6 +56,10 @@ public class TestGraphuloConnection {
 		Connector connector = instance.getConnector("root","password");
 		Graphulo graphulo = new Graphulo(connector, new PasswordToken("password"));
 		String tR="piyush_test_1";
+		
+
+		
+		
 		
 
 		
@@ -121,19 +126,71 @@ public class TestGraphuloConnection {
 			 }
 		 
 		 try{
-		 BatchScanner bs = connector.createBatchScanner(tR, Authorizations.EMPTY, 1);
+		 BatchScanner bs = connector.createBatchScanner(tR, Authorizations.EMPTY, 2);
 		 bs.setRanges(Collections.singleton(new Range()));
+		 BatchWriter bw = connector.createBatchWriter(tR, new BatchWriterConfig());
+				 
 		 for (Map.Entry<Key, Value> entry : bs) {
-			 
+			 Mutation m = new Mutation(entry.getKey().getRow().toString());
 			 System.out.println(entry.getKey().toStringNoTime()+" -> "+entry.getValue());
+			 int temp = Integer.parseInt(entry.getValue().toString());
+			 
+			 while (temp>9){
+				 int val=temp%10;
+				 
+				 temp/=10;
+				 temp+=val;
 			 }
+			 m.put("Test", "Sum_Less10", String.valueOf(temp));
+			 bw.addMutation(m);
+			 
+			 System.out.println(temp);
+			 }
+		 
 			 bs.close();
+			 bw.flush();
+			 bw.close();
 		 }
 		 catch (TableNotFoundException e) {
 			 System.out.println(111);
 			 throw new RuntimeException("crazy timing bug", e);
 			 
 			 }
+		Scanner tableScanner=null;
+		
+		try {
+			//Authorizations auths = new Authorizations("public");
+		
+			tableScanner = connector.createScanner(tR,new Authorizations());
+			//tableScanner.setRange(new Range("13csu1"));
+			//IteratorSetting cfg = new IteratorSetting(1, "count2","com.orkash.query.nlp.iterators.CountingIterator");
+			//tableScanner.addScanIterator(cfg);
+			//tableScanner.fetchColumn(new Text("Score") , new Text("Marks"));
+		//	tableScanner.fetchColumnFamily(new Text("Score"));
+			/*
+			for (Entry<Key, Value> entry : tableScanner) {
+				Integer.parseInt(new String(entry.getValue().get()));
+			}*/
+			//tableScanner.addScanIterator(arg0);
+			
+			for (Entry<Key, Value> entry : tableScanner) {
+				System.out.println(entry.getKey()+"---->"+entry.getValue());
+			
+			//int num= Integer.parseInt(entry.getValue().toString());
+			//System.out.println("num"+num);
+			}
+		} catch (TableNotFoundException ex) {
+			
+			throw new RuntimeException("table not found - was SimpleIngestClient run?");
+		}
+		
+		System.out.println("here");
+
+
+		tableScanner.close();
+		
+
+
 	}
 
 }
