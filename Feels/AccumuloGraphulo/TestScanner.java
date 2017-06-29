@@ -48,7 +48,7 @@ import edu.mit.ll.graphulo.*;
 public class TestScanner{
 	private Connector conn;
 	private String tableName;
-	TestScanner(Connector conn){
+	TestScanner(Connector conn, String tableName){
 		this.conn = conn;
 		this.tableName = tableName;
 		this.scan();
