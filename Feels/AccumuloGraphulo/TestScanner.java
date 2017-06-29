@@ -59,8 +59,9 @@ public class TestScanner{
 			BatchScanner bs = this.conn.createBatchScanner(this.tableName, Authorizations.EMPTY, 1);
 			bs.setRanges(Collections.singleton(new Range()));
 			for (Map.Entry<Key, Value> entry : bs) {
-				System.out.println(entry.getKey()+"-->"+entry.getValue());
+				System.out.println(entry.getKey().toString()+"-->"+entry.getValue().toString());
 			}
+			bs.close();
 		} catch (TableNotFoundException e) {
 			 System.out.println(111);
 			 throw new RuntimeException("crazy timing bug", e);
