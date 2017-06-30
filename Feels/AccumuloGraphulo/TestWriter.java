@@ -48,13 +48,23 @@ import edu.mit.ll.graphulo.*;
 public class TestWriter{
 	private Connector conn;
 	private String tableName;
+	TestWriter(){
+		this.conn = null;
+		this.tableName = null;
+	}
+	
 	TestWriter(Connector conn, String tableName){
 		this.conn = conn;
 		this.tableName = tableName;
-		this.write();
+		
 	}
 	
-	private void write(){
+	public void createConnection(Connector conn, String tableName){
+		this.conn = conn;
+		this.tableName = tableName;
+	}
+	
+	private void write(Mutation m){
 		try{
 			BatchScanner bs = this.conn.createBatchScanner(this.tableName, Authorizations.EMPTY, 1);
 			bs.setRanges(Collections.singleton(new Range()));
